@@ -22,9 +22,12 @@ pub fn init_trace_writer() -> Result<(), Error> {
     #[cfg(unix)]
     if TRACE_WRITER_INIT.load(Ordering::SeqCst) == INITIALIZED {
         Ok(())
-    } else if TRACE_WRITER_INIT.compare_and_swap(UNINITIALIZED, INITIALIZING, Ordering::SeqCst)
-        == UNINITIALIZED
-    {
+    } else if let Ok(_) = TRACE_WRITER_INIT.compare_exchange(
+        UNINITIALIZED,
+        INITIALIZING,
+        Ordering::SeqCst,
+        Ordering::SeqCst,
+    ) {
         let f = OpenOptions::new()
             .write(true)
             .create(true)
