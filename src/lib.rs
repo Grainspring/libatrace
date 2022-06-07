@@ -62,7 +62,6 @@ pub fn trace_begin(name: &str) -> Result<(), Error> {
     #[cfg(unix)]
     init_trace_writer()?;
     if let Some(writer) = get_trace_writer() {
-        // println!("writer:{:p}, file::{:?}", writer, writer.file);
         let mut w = &writer.file;
         let mut s = String::new();
         let _ = write!(&mut s, "B|{}|{}", process::id(), name);
@@ -76,7 +75,6 @@ pub fn trace_end() -> Result<(), Error> {
     #[cfg(unix)]
     init_trace_writer()?;
     if let Some(writer) = get_trace_writer() {
-        // println!("writer:{:p}, file::{:?}", writer, writer.file);
         let mut w = &writer.file;
         w.write_all(b"E")?;
         w.flush()?
