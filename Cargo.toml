@@ -11,7 +11,7 @@ categories = [
     "development-tools::debugging",
     "development-tools::profiling",
 ]
-keywords = ["tracing", "kenel debug tracing", "debugfs"]
+keywords = ["tracing", "libatrace", "debugfs"]
 
 [dependencies]
 libc = "0.2.48"
